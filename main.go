@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/json"
 	"log"
 	"net/http"
 )
@@ -18,4 +19,9 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	defer response.Body.Close()
+
+	var decoder *json.Decoder = json.NewDecoder(response.Body)
+	var joke Joke
+	decoder.Decode(&joke)
 }
