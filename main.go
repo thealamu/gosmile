@@ -2,6 +2,7 @@ package main
 
 import (
 	"encoding/json"
+	"fmt"
 	"log"
 	"net/http"
 )
@@ -21,7 +22,10 @@ func main() {
 	}
 	defer response.Body.Close()
 
+	// Parse response body into a Joke
 	var decoder *json.Decoder = json.NewDecoder(response.Body)
 	var joke Joke
 	decoder.Decode(&joke)
+
+	fmt.Printf("%s\n%s\n", joke.Setup, joke.Punchline)
 }
